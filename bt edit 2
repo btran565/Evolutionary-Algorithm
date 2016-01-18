@@ -1,0 +1,120 @@
+//BT's edit
+
+import java.util.*;
+import java.util.Random;
+import java.util.Scanner;
+
+
+public class Initialization {
+	//Scanner fileinput = new Scanner(System.in);
+	//String file_input = fileinput.nextLine();
+	String input = "Hello, World!";
+	int strlength = input.length();
+	char[] character = new char[strlength];
+	String[] population = new String[50];
+	String[] binaryPop = new String[50]; //
+	String binaryInput;
+	
+	public void Population () {
+		for(int y = 0; y < 50; y++) {
+			for (int z = 0; z < strlength; z++)
+			{
+				Random generator = new Random(); 
+				int i = generator.nextInt(126) + 33;
+				char c = (char)i;
+				character[z] = c;
+			}
+			String random = new String(character);
+			population[y] = random;
+		}
+	}
+	
+	/*public String StringSelector()
+	{
+		
+	}*/
+	
+	/*for(int y=0; y<s.length-1; y++)
+	{
+		String str1 = s[y];
+		String str2 = "Hello World!";
+		int fitCount = 0;
+		
+	}*/
+				//Unused code
+	
+	
+	public String BinaryHelloWorld() //turns "Hello, World!" into binary
+	{
+		String hiWorld = "Hello, World!";
+		for(int i=0; i<hiWorld.length();i++)
+		{
+			byte[] bytes = hiWorld.getBytes();
+			StringBuilder binary = new StringBuilder();
+			for(byte b: bytes)
+			{
+				int val = b;
+				for (int j=0; j<8; j++)
+				{
+					binary.append((val &128)==0 ? 0 : 1 );
+					val <<= 1;
+				}
+				binary.append(' ');
+			}
+			hiWorld = binary.toString();
+		}
+		return hiWorld;
+	}
+	
+	public String[] toBinary (String[] s)	//uses population in conditions, returns population in binary
+	{
+		String[] binPop = new String[50];
+		
+		for(int i=0; i<s.length;i++)
+		{
+			byte[] bytes = s[i].getBytes();
+			StringBuilder binary = new StringBuilder();
+			for(byte b: bytes)
+			{
+				int val = b;
+				for (int j=0; j<8; j++)
+				{
+					binary.append((val &128)==0 ? 0 : 1 );
+					val <<= 1;
+				}
+				binary.append(' ');
+			}
+			binPop[i] = binary.toString();
+		}
+		return binPop;
+	}
+	
+	public int Fitness (String[] sbin)	//to clarify, Fitness uses the binaryPop
+	{
+		int fitCount = 0;
+		for(int x=0; x<sbin.length; x++)
+		{
+			String str1 = sbin[x];
+			String str2 = BinaryHelloWorld();
+			
+			
+			for(int y=0; y < str1.length(); y++)
+			{
+				if(str1.charAt(y) != str2.charAt(y))
+				{
+					fitCount += 1;
+				}
+			}
+		}
+		return fitCount;
+	}
+	
+	public static void main(String[] args) {
+		Initialization pop_1 = new Initialization();
+		pop_1.Population();
+		for (int j = 0; j < 50; j++) {
+			System.out.println(pop_1.population[j]);
+			//System.out.println(Fitness(toBinary(population)))
+		};
+	}
+}
